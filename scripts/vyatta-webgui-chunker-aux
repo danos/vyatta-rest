@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# Copyright (c) 2019, AT&T Intellectual Property.  All rights reserved.
+# Copyright (c) 2016 by Brocade Communications Systems, Inc.
+# All rights reserved.
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+### BEGIN INIT INFO
+# Provides:          vyatta-webgui-chunker
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:
+# Default-Stop:
+# Short-Description: Vyatta Webgui chunker service
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+. /lib/lsb/init-functions
+
+NAME=chunker2
+DAEMON=/usr/sbin/chunker2
+RESTDAEMON=/opt/vyatta/bin/rest
+FCGISOCK=/tmp/fcgi.socket
+PIDFILE=/var/run/chunker2.pid
+RESTPIDFILE=/var/run/rest.pid
+
+test -x $DAEMON || exit 5
+
+if [ -r /etc/default/$NAME ]; then
+	. /etc/default/$NAME
+fi
+
+case $1 in
+	start)
+		mkdir -p /var/run/gui
+		chmod a+rwx /var/run/gui
+
+		echo "Starting API PAGER server"
+  		start-stop-daemon --start --quiet --oknodo --background -m --pidfile $PIDFILE --startas $DAEMON -- -p $PIDFILE 
+
+###             This is where we'll set up the spawning of the rest cgi, but what user?
+		spawn-fcgi -f $RESTDAEMON -s $FCGISOCK -P $RESTPIDFILE 2>/dev/null
+###             also need to change the corresponding fastcgi to not point to the rest binary
+		chown www-data $FCGISOCK
+  		;;
+	stop)
+		echo "Stopping API PAGER server"
+                if [ -f $PIDFILE ] ; then 
+  		    start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE 
+                fi  
+		rm -f $PIDFILE >/dev/null	
+
+		#need to kill any remaining child processes
+		pkill -9 chunker2
+
+		if [ -f $RESTPIDFILE  ] ; then
+		    kill -s SIGTERM "$( cat $RESTPIDFILE )" 2>/dev/null
+		fi
+		rm -f $RESTPIDFILE >/dev/null
+		;;
+	restart|force-reload)
+		$0 stop && sleep 2 && $0 start
+  		;;
+	try-restart)
+		if $0 status >/dev/null; then
+			$0 restart
+		else
+			exit 0
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 2
+		;;
+esac

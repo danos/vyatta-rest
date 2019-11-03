@@ -1,0 +1,65 @@
+Source: vyatta-rest
+Section: contrib/net
+Priority: extra
+Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
+Build-Depends: debhelper (>= 9),
+ dh-autoreconf,
+ dh-yang,
+ wget,
+ unzip,
+ fakeroot,
+ libpam0g-dev,
+ libfcgi-dev,
+ libjansson-dev,
+ libvyatta-cfg-dev (>= 0.104.24),
+ vyatta-opd-dev,
+ libcurl4-openssl-dev | libcurl-dev,
+ gawk,
+ libvyatta-util-dev (>= 0.14),
+ libaudit-dev,
+ cpio,
+ libssl-dev
+Standards-Version: 3.9.8
+
+Package: vyatta-rest
+Architecture: any
+Breaks: vyatta-op (<< 1.0), vyatta-webgui2 (<< 1.0),
+Replaces: vyatta-webgui, vyatta-op (<< 1.0), vyatta-webgui2 (<< 1.0),
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ lighttpd,
+ libjson-perl,
+ lsb-base (>= 3.0-6),
+ adduser,
+ sysstat,
+ vyatta-cfg (>= 0.104.24),
+ vyatta-op,
+ vyatta-restclient-perl,
+ vyatta-service-dhcp-client,
+ vyatta-system (>= 1.6.1),
+ spawn-fcgi
+Description: Vyatta Rest interface
+ This package provides the Vyatta Rest interface.
+
+Package: vyatta-restclient-perl
+Architecture: all
+Depends: ${misc:Depends}
+Description: Perl module Vyatta:RestVlient
+ The PM implementing Vyatta:RestClient
+
+Package: vyatta-service-https-yang
+Architecture: all
+Depends: ${misc:Depends}, vyatta-rest (>= ${source:Version})
+Section: contrib/admin
+Priority: optional
+Description: vyatta-service-https module
+ The YANG module for vyatta-service-https
+
+Package: vyatta-service-https-v1-yang
+Architecture: all
+Depends: ${misc:Depends}, ${yang:Depends}, vyatta-rest (>= ${source:Version})
+Replaces: vyatta-webgui2 (<= 0.3.370)
+Section: contrib/admin
+Priority: optional
+Description: vyatta-service-https-v1 module
+ The YANG module for vyatta-service-https-v1

@@ -1,0 +1,2 @@
+lib/Vyatta/Rest.pm opt/vyatta/share/perl5/Vyatta
+lib/Vyatta/RestClient.pm opt/vyatta/share/perl5/Vyatta

@@ -1,0 +1,7 @@
+#!/opt/vyatta/bin/cliexpr
+# Copyright (c) 2019, AT&T Intellectual Property.  All rights reserved.
+# SPDX-License-Identifier: GPL-2.0-only
+
+commit:expression: exec "if [ -x /opt/vyatta/sbin/vyatta-webgui-commit-aux ]; then
+           /opt/vyatta/sbin/vyatta-webgui-commit-aux
+         fi"

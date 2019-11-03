@@ -1,0 +1,94 @@
+#!/bin/bash
+#
+# Copyright (c) 2019, AT&T Intellectual Property.  All rights reserved.
+# Copyright (c) 2016 by Brocade Communications Systems, Inc.
+# All rights reserved.
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# orig op/cfg env variables
+export vyatta_prefix=/opt/vyatta
+export vyatta_datarootdir=$vyatta_prefix/share
+export vyatta_exec_prefix=$vyatta_prefix
+export vyatta_bindir=$vyatta_exec_prefix/bin
+export vyatta_sbindir=$vyatta_exec_prefix/sbin
+export vyatta_libdir=$vyatta_exec_prefix/lib
+export vyatta_datadir=$vyatta_datarootdir
+export vyatta_localstatedir=$vyatta_prefix/var
+export vyatta_sysconfdir=$vyatta_prefix/etc
+export vyatta_op_templates=$vyatta_datadir/vyatta-op/templates
+export vyatta_cfg_templates=$vyatta_datadir/vyatta-cfg/templates
+export vyatta_configdir=$vyatta_prefix/config
+export VYATTA_ACTIVE_CONFIGURATION_DIR=$vyatta_configdir/active
+export VYATTA_CONFIG_TEMPLATE=$vyatta_cfg_templates
+export VYATTA_TAG_NAME=node.tag
+export VYATTA_MOD_NAME=.modified
+export VYATTA_CFG_GROUP_NAME=vyattacfg
+export VYATTA_EDIT_LEVEL=/
+export VYATTA_TEMPLATE_LEVEL=/
+export VYATTA_OUTPUT_ERROR_LOCATION=TRUE
+
+# service variables
+declare vyatta_service_templates='/opt/vyatta/share/vyatta-service/templates/'
+
+#parsing the node.def cmd
+_vyatta_service_get_node_def_field ()
+{
+    local file=$1 field=$2
+
+    sed -n '/^'"$field"':/,$ {
+# strip field name and hold rest of line
+    s/[a-z]*: *//
+    h
+    :b
+# at EOF, print hold buffer and quit
+    $ { x; p; q }
+# input next line
+    n
+# if start of another field def, print hold buf and quit
+    /^[a-z]*:/ { x; p; q }
+# add to hold buf and branch to input next line
+    H
+    bb
+    }' "$file"
+}
+
+#main run
+_vyatta_service_run ()
+{
+    local tpath=$vyatta_service_templates
+    # Convert the path to arguments so that the tree can be walked
+    # this makes the node.tag place holders work properly
+    local cmdin="$1"
+    local -a args
+    args="${cmdin//\// }"
+    args=( ${args[*]} )
+
+    false;
+    for arg in "${args[@]}"; do
+        if [[ -d "$tpath/$arg" ]]; then
+            tpath+=/$arg
+        elif [[ -d "$tpath/node.tag" ]]; then
+            tpath+=/node.tag
+        else
+            echo "Invalid path: $tpath/[$arg]" >&2
+            return 1
+        fi
+    done
+    if [[ ! -f $tpath/node.def ]]; then
+            echo "Invalid path: $tpath" >&2
+            return 1
+    fi
+     
+    local run_cmd
+    run_cmd=$(_vyatta_service_get_node_def_field $tpath/node.def run)
+    local ret=0
+    if [ -n "$run_cmd" ]; then
+        eval "$run_cmd"
+        ret=$?
+    else
+        echo "No command found in template" >&2
+        ret=1
+    fi
+    return $ret
+}

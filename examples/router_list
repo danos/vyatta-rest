@@ -1,0 +1,16 @@
+#
+# example router list for router_backup.pl
+#
+# ./router_backup.pl --routers-file=router_list      \
+#                    --git-dir=/backups/router-git
+#
+# list of routers to have their configuration file backedup
+# into a git repo.
+#
+# router        userid     password
+#
+10.1.0.1        vyatta     vyatta
+10.3.0.1        vyatta     vyatta    # comments here are ignored
+
+
+

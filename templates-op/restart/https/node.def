@@ -1,0 +1,7 @@
+help: Restart https server
+run:   if cli-shell-api existsActive service https; then
+	 /usr/sbin/invoke-rc.d lighttpd restart
+         service vyatta-webgui-chunker-aux restart
+       else
+	echo "https server is not running"
+       fi
