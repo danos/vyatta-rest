@@ -610,8 +610,7 @@ ConfMode::process(Session &session)
 			string action = cmd_path;
 			session.vyatta_debug("CONF:G");
 
-			if ((action == "commit") || (action == "save")  ||
-					(action == "save/config.boot")) {
+			if ((action == "commit") || (action == "save")) {
 				string stdout = "";
 				struct configd_conn conn;
 				if (configd_open_connection(&conn) == -1) {
@@ -633,7 +632,7 @@ ConfMode::process(Session &session)
 				}
 				stdout = string(buf);
 				if ((stdout == "") && (action != "commit")) {
-					stdout = "Saving configuration to '/config/config.boot'... Done";
+					stdout = "Saving configuration ... Done";
 				}
 				stdout = Rest::mass_replace(stdout,"\"","\\\"");
 				stdout = Rest::mass_replace(stdout,"\n","\\n");
