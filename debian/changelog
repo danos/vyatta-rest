@@ -1,3 +1,12 @@
+vyatta-rest (1.5) unstable; urgency=medium
+
+  [ William Ivory ]
+  * Remove explicit config.boot reference in confmode.cc process()
+
+  [ Charles (Chas) Williams ]
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Mon, 23 Dec 2019 16:30:20 -0500
+
 vyatta-rest (1.4) unstable; urgency=medium
 
   * DANOS Import master
