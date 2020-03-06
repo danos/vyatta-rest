@@ -1,3 +1,12 @@
+vyatta-rest (1.6) unstable; urgency=medium
+
+  [ Paul Carson ]
+  * Disable ARIA and CAMELLIA ciphers (Fixes: VRVDR-50278)
+
+  [ Charles (Chas) Williams ]
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Fri, 06 Mar 2020 11:16:11 -0500
+
 vyatta-rest (1.5) unstable; urgency=medium
 
   [ William Ivory ]
