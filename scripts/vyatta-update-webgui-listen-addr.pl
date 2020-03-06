@@ -3,7 +3,7 @@
 # Module: vyatta-update-webgui-listen-addr.pl
 # Description: updates the ssl listen configuration
 #
-# Copyright (c) 2017-2019, AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020, AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2014 by Brocade Communications Systems, Inc.
 # All rights reserved.
 # Copyright (c) 2009-2013 Vyatta, Inc.
@@ -51,7 +51,7 @@ print $fp "ssl.engine                = \"enable\"\n";
 print $fp "ssl.pemfile               = \"/etc/lighttpd/server.pem\"\n";
 print $fp "ssl.use-sslv2             = \"disable\"\n";
 print $fp "ssl.use-sslv3             = \"disable\"\n";
-print $fp "ssl.cipher-list           = \"TLSv1.2+HIGH !PSK\"\n";
+print $fp "ssl.cipher-list           = \"TLSv1.2+HIGH !PSK !ARIA !CAMELLIA\"\n";
 
 if ( $#addrs >= 0 ) {
     print $fp "server.bind               = \"127.0.0.1\"\n";
@@ -71,7 +71,7 @@ if ( $#addrs >= 0 ) {
         print $fp
           "                  ssl.use-sslv3               = \"disable\"\n";
         print $fp
-"                  ssl.cipher-list             = \"TLSv1.2+HIGH !PSK\"\n";
+"                  ssl.cipher-list             = \"TLSv1.2+HIGH !PSK !ARIA !CAMELLIA\"\n";
         print $fp "}\n";
         if ( defined($http_redir) && $http_redir eq "enable" ) {
 
