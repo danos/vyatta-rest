@@ -31,6 +31,7 @@ Provides: ${diverted-files}
 Conflicts: ${diverted-files}
 Depends: ${shlibs:Depends},
  ${misc:Depends},
+ ${perl:Depends},
  lighttpd,
  libjson-perl,
  lsb-base (>= 3.0-6),
@@ -47,7 +48,7 @@ Description: Vyatta Rest interface
 
 Package: vyatta-restclient-perl
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, ${perl:Depends}
 Description: Perl module Vyatta:RestVlient
  The PM implementing Vyatta:RestClient
 
