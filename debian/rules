@@ -7,7 +7,7 @@ export DEB_BUILD_HARDENING=1
 include /usr/share/dpkg/default.mk
 
 %:
-	dh $@ --with autoreconf --with config_package
+	dh $@ --with autoreconf --with config_package --with yang
 
 override_dh_auto_configure:
 	dh_auto_configure -- --prefix=/opt/vyatta
