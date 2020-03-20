@@ -51,14 +51,6 @@ Depends: ${misc:Depends}
 Description: Perl module Vyatta:RestVlient
  The PM implementing Vyatta:RestClient
 
-Package: vyatta-service-https-yang
-Architecture: all
-Depends: ${misc:Depends}, vyatta-rest (>= ${source:Version})
-Section: contrib/admin
-Priority: optional
-Description: vyatta-service-https module
- The YANG module for vyatta-service-https
-
 Package: vyatta-service-https-v1-yang
 Architecture: all
 Depends: ${misc:Depends}, ${yang:Depends}, vyatta-rest (>= ${source:Version})
