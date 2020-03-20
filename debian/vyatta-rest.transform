@@ -1,0 +1,1 @@
+/etc/cron.daily/lighttpd.vyatta sed -E -f debian/scripts/lighttpd-cron-transform

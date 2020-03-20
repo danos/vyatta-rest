@@ -3,11 +3,13 @@ Section: contrib/net
 Priority: extra
 Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
 Build-Depends: debhelper (>= 9),
+ config-package-dev,
  dh-autoreconf,
  dh-yang,
  wget,
  unzip,
  fakeroot,
+ lighttpd,
  libpam0g-dev,
  libfcgi-dev,
  libjansson-dev,
@@ -25,6 +27,8 @@ Package: vyatta-rest
 Architecture: any
 Breaks: vyatta-op (<< 1.0), vyatta-webgui2 (<< 1.0),
 Replaces: vyatta-webgui, vyatta-op (<< 1.0), vyatta-webgui2 (<< 1.0),
+Provides: ${diverted-files}
+Conflicts: ${diverted-files}
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  lighttpd,

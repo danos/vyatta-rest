@@ -8,3 +8,4 @@ vyatta-rest: unusual-interpreter opt/vyatta/share/tmplscripts/*
 vyatta-rest: postrm-does-not-call-updaterc.d-for-init.d-script
 vyatta-rest: init.d-script-not-included-in-package
 vyatta-rest: possible-gpl-code-linked-with-openssl
+vyatta-rest: run-parts-cron-filename-contains-illegal-chars
