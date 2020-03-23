@@ -1,3 +1,16 @@
+vyatta-rest (1.7) unstable; urgency=medium
+
+  [ Duncan Eastoe ]
+  * Transform lighttpd cron with dh_configpackage
+  * Update lighttpd daily cron script to use runuser
+  * Remove vyatta-service-https-yang pkg and module
+  * control: Add missing ${perl:Depends} substvars
+  * rules: invoke dh_yang helper
+
+  [ Charles (Chas) Williams ]
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Mon, 23 Mar 2020 16:06:09 -0400
+
 vyatta-rest (1.6) unstable; urgency=medium
 
   [ Paul Carson ]
