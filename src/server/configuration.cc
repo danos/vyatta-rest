@@ -320,8 +320,8 @@ Configuration::get_template_node(const string &path, TemplateParams &params)
 							end = true;
 						}
 
-						//trim whitespace from both ends
-						tmp = Rest::trim_whitespace(tmp);
+						//trim from both ends
+						tmp = Rest::trim(tmp);
 
 						//finally strip off quotes if there are any
 						if (tmp[0] == '"') {

@@ -158,7 +158,7 @@ public:
 	 *
 	 **/
 	static std::string
-	trim_whitespace(const std::string &src);
+	trim(const std::string &src);
 
 
 	/**

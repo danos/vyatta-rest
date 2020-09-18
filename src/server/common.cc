@@ -180,7 +180,7 @@ Rest::mass_replace(const std::string &source, const std::string &victim, const
  *
  **/
 std::string
-Rest::trim_whitespace(const std::string &src)
+Rest::trim(const std::string &src)
 {
 	string str(src);
 	size_t startpos = str.find_first_not_of(" \t");

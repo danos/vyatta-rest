@@ -66,7 +66,7 @@ sub send_request
 	    }
         }
         return ($code,undef);
-    } # if no non-whitespace characters that means no response received
+    } # if no non-blank characters that means no response received
 
     return ($code,undef); # no response received, request timed out
 }
