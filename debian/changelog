@@ -1,3 +1,9 @@
+vyatta-rest (1.8) unstable; urgency=medium
+
+  * Remove potentially offensive language
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Mon, 21 Sep 2020 12:30:31 -0400
+
 vyatta-rest (1.7) unstable; urgency=medium
 
   [ Duncan Eastoe ]
